@@ -9,13 +9,36 @@ class App extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    const { dispatch, selectedReddit } = this.props;
+    dispatch(fetchPostsIfNeeded(selectedReddit));
+  }
+
   render() {
+    const { posts, isFetching } = this.props;
+
     return (
       <div>
-        teste
+        <Posts posts={posts} isFetching={isFetching} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { selectedReddit, postsByReddit } = state;
+
+  const { isFetching, lastUpdated, items: posts } = postsByReddit[selectedReddit] || {
+    isFetching: true,
+    items: []
+  };
+
+  return {
+    selectedReddit,
+    posts,
+    isFetching,
+    lastUpdated
+  }
+}
+
+export default connect(mapStateToProps)(App);

@@ -27,8 +27,6 @@ function requestPosts(reddit) {
 }
 
 function receivePosts(reddit, json) {
-  console.log(json);
-
   return {
     type: RECEIVE_POSTS,
     reddit: reddit,
