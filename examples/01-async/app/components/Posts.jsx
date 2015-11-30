@@ -7,30 +7,30 @@ class Posts extends Component {
 
     return (
       <div>
-        {(isFetching && posts.length === 0) && this.isLoading()}
-        {(!isFetching && posts.length === 0) && this.isEmpty()}
-        {(posts.length > 0) && this.showPosts()}
+        {(isFetching && posts.length === 0) && this.renderLoading()}
+        {(!isFetching && posts.length === 0) && this.renderEmpty()}
+        {(posts.length > 0) && this.renderPosts()}
       </div>
     );
   }
 
-  isLoading() {
+  renderLoading() {
     return (
       <div>Loading...</div>
     );
   }
 
-  isEmpty() {
+  renderEmpty() {
     return (
       <div>Empty.</div>
     );
   }
 
-  showPosts() {
+  renderPosts() {
     const { posts } = this.props;
     return (
       <ul>
-        {posts.map(post => <Post key={post.id} post={post} />)}
+        {posts.map(post => <Post key={`post-${post.id}`} post={post} />)}
       </ul>
     );
   }
